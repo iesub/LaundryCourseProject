@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Главная</title>
+    <title>Регистрация</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -10,13 +10,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
     <style>
-   .main-toolbar{
-        text-align: center;
-   }
-  </style>
+        .main-toolbar{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+
 <div class = "container main-toolbar">
     <div class = "row">
         <div class = "col-sm">
@@ -42,6 +45,38 @@
         <div class = "col-sm site-name">
             <h1>Прачечная Laundry</h1>
         </div>
+    </div>
+</div>
+
+<div class = "container">
+    <div class = "row">
+        <h1>Добавить заказ</h1>
+    </div>
+    <div class = "row">
+        <td th:utext="${Error}"></td>
+    </div>
+    <div class = "row">
+        <form action="#" th:action="@{/add-order}" th:object="${orderForm}" method="post">
+            <div class = "row">
+                <div class = "col-sm">
+                    <label>Опишите, какие вещи вы собираетесь сдать к нам в прачечную: </label>
+                </div>
+                <div class = "col-sm">
+                    <input type="text" th:field="*{clothesForWork}" />
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-sm">
+                    <label>Напишите, когда вы собираетесь сдать ваши вещи к нам в прачечную:</label>
+                </div>
+                <div class = "col-sm">
+                    <input type="text" th:field="*{dateToTake}" />
+                </div>
+            </div>
+            <div class = "row">
+                <p><input type="submit" value="Отправить" /> <input type="reset" value="Сбросить" /></p>
+            </div>
+        </form>
     </div>
 </div>
 </body>

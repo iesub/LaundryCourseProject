@@ -34,27 +34,27 @@ public class RegistrationController {
                         "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
         Pattern pattern = Pattern.compile(emailPattern);
-        Matcher matcher = pattern.matcher(userForm.getMail());
+        Matcher matcher = pattern.matcher(userForm.getUsername());
 
         if (bindingResult.hasErrors()) {
             return "registration";
         }
         if(!matcher.matches()){
-            model.addAttribute("mailError", "Неверный формат электронной почты");
+            model.addAttribute("Error", "Неверный формат электронной почты");
             return "registration";
         }
         if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
+            model.addAttribute("Error", "Пароли не совпадают");
             return "registration";
         }
         if (!userService.registerUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+            model.addAttribute("Error", "Пользователь с такой электронной почтой уже существует");
             return "registration";
         }
 
         User userFromBD = userService.loadUserByUsername(userForm.getUsername());
-        mailService.sendActivationURL(userFromBD.getMail(), userFromBD.getId());
-        return "login";
+        mailService.sendActivationURL(userFromBD.getUsername(), userFromBD.getId());
+        return "redirect:/login";
     }
 
     @GetMapping("registration/activate/{userId}")
@@ -62,7 +62,7 @@ public class RegistrationController {
         User user = userService.findUserById(userId);
         user.setActive(true);
         userService.updateRow(user);
-        return "/login";
+        return "redirect:/login";
     }
 
 }

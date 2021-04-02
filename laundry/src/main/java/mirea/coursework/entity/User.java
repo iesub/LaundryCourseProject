@@ -1,5 +1,6 @@
 package mirea.coursework.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,20 +16,22 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id = Long.valueOf(0);
     @Column(name = "name")
     String username;
-    @Column(name = "mail")
-    String mail;
+    @Column(name = "surname")
+    String surname;
+    @Column(name = "phone_number")
+    String phoneNumber;
+    @Column(name = "name_real")
+    String name;
     @Column(name = "password")
     String password;
     @Transient
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-    @OneToMany
-    @Fetch(FetchMode.JOIN)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Order> orders;
     @Column(name = "activated")
     boolean isActive = false;
@@ -59,20 +62,20 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
     public List<Order> getOrders() {
         return orders;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setPasswordConfirm(String passwordConfirm) {
@@ -97,6 +100,22 @@ public class User implements UserDetails {
 
     public boolean getActive() {
         return isActive;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getSurname() {
+        return surname;
     }
 
     @Override
