@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import static mirea.coursework.enumiration.OrderStateEnum.AWAIT_TO_ACCEPT;
 
 @Controller
 public class OrderOpsController {
@@ -34,7 +37,7 @@ public class OrderOpsController {
     public String addOrder(@ModelAttribute("orderForm") Order order){
 
         order.setDateCreated(new Date());
-        OrderStateEnum ose = OrderStateEnum.AWAIT_TO_ACCEPT;
+        OrderStateEnum ose = AWAIT_TO_ACCEPT;
         order.setState(ose);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -44,5 +47,17 @@ public class OrderOpsController {
         orderService.insertOrder(order);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/show-orders")
+    public String showOrders(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.loadUserByUsername(auth.getName());
+
+        List<Order> listOrders = user.getOrders();
+        listOrders.sort(Comparator.comparing(Order::getDateCreated).reversed());
+
+        model.addAttribute("orderList", listOrders);
+        return "show-orders";
     }
 }

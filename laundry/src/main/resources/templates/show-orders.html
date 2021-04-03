@@ -16,6 +16,10 @@
         .main-toolbar{
             text-align: center;
         }
+
+        .order-block{
+            border-bottom: 2px solid black;
+        }
     </style>
 </head>
 <body>
@@ -50,33 +54,40 @@
 
 <div class = "container">
     <div class = "row">
-        <h1>Добавить заказ</h1>
+        <h1>Список ваших заказов</h1>
     </div>
-    <div class = "row">
-        <td th:utext="${Error}"></td>
-    </div>
-    <div class = "row">
-        <form action="#" th:action="@{/add-order}" th:object="${orderForm}" method="post">
+    <div class = "container">
+        <div class = "order-block" th:each = "order: ${orderList}">
             <div class = "row">
                 <div class = "col-sm">
-                    <label>Опишите, какие вещи вы собираетесь сдать к нам в прачечную: </label>
+                    <label> Вещи, для чистки: </label>
                 </div>
                 <div class = "col-sm">
-                    <input type="text" th:field="*{clothesForWork}" />
+                    <label th:text="${order.clothesForWork}"> </label>
                 </div>
             </div>
             <div class = "row">
                 <div class = "col-sm">
-                    <label>Напишите, когда вы собираетесь сдать ваши вещи к нам в прачечную:</label>
+                    <label> Состояние заказа: </label>
                 </div>
                 <div class = "col-sm">
-                    <input type="text" th:field="*{dateToTake}" />
+                    <label th:if="${order.state.ordinal()} == 0"> Ожидание подтверждения заказа </label>
+                    <label th:if="${order.state.ordinal()} == 1"> Мы готовы принять заказ </label>
+                    <label th:if="${order.state.ordinal()} == 2"> Вещи в ожидании чистки </label>
+                    <label th:if="${order.state.ordinal()} == 3"> Вещи в процессе чистки </label>
+                    <label th:if="${order.state.ordinal()} == 4"> Ваши вещи готовы. Можно забирать! </label>
+                    <label th:if="${order.state.ordinal()} == 5"> Вещи забраны. Заказ закрыт. </label>
                 </div>
             </div>
             <div class = "row">
-                <p><input type="submit" value="Отправить" /> <input type="reset" value="Сбросить" /></p>
+                <div class = "col-sm">
+                    <label> Дата создания заказ: </label>
+                </div>
+                <div class = "col-sm">
+                    <label th:text="${order.dateCreated}"> </label>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 </body>

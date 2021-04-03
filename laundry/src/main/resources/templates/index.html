@@ -26,7 +26,7 @@
             <a href = "/add-order">Оформить заказ</a>
         </div>
         <div class = "col-sm" th:if="${authentication} != anonymousUser">
-            <a href = "/">Просмотреть активные заказы</a>
+            <a href = "/show-orders">Просмотреть активные заказы</a>
         </div>
         <div class = "col-sm" th:if="${authentication} != anonymousUser">
             <a href = "/logout">Выйти</a>

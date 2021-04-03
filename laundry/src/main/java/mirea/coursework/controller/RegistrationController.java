@@ -54,7 +54,7 @@ public class RegistrationController {
 
         User userFromBD = userService.loadUserByUsername(userForm.getUsername());
         mailService.sendActivationURL(userFromBD.getUsername(), userFromBD.getId());
-        return "redirect:/login";
+        return "registration-mail-notification";
     }
 
     @GetMapping("registration/activate/{userId}")
