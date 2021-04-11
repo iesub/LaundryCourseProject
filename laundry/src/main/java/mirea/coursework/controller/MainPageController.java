@@ -14,6 +14,7 @@ public class MainPageController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         model.addAttribute("authentication", auth.getName());
+        model.addAttribute("authorities", auth.getAuthorities());
 
         return "index";
     }

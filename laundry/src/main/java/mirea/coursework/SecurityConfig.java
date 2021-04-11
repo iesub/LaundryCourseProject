@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             Exception {
         http.csrf().disable().cors().disable()
                 .authorizeRequests()
+                .antMatchers("/management/order-control").hasAuthority("ROLE_MANAGER")
                 .antMatchers("/registration/activate/*", "/login", "/registration", "/login-error")
                 .permitAll()
                 .anyRequest().authenticated()

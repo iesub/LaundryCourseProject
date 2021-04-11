@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Регистрация</title>
+    <title>Добавить заказ</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -31,6 +31,9 @@
         <div class = "col-sm" th:if="${authentication} != anonymousUser">
             <a href = "/show-orders">Просмотреть активные заказы</a>
         </div>
+        <div class = "col-sm" th:if="${authentication} != anonymousUser" sec:authorize="hasRole('MANAGER')">
+            <a href = "/management/order-control">Менеджмент заказов</a>
+        </div>
         <div class = "col-sm" th:if="${authentication} != anonymousUser">
             <a href = "/logout">Выйти</a>
         </div>
@@ -57,12 +60,56 @@
     </div>
     <div class = "row">
         <form action="#" th:action="@{/add-order}" th:object="${orderForm}" method="post">
+            <label>Выберите вариант стирки</label>
             <div class = "row">
                 <div class = "col-sm">
-                    <label>Опишите, какие вещи вы собираетесь сдать к нам в прачечную: </label>
+                    <div>
+                        <input type = 'radio' name = "orderVar" th:field="*{clothesForWork}" value = "Стирка в машинке объемом до 2 кг">
+                        <h3> Стирка в машинке объемом до 2 кг </h3>
+                    </div>
                 </div>
                 <div class = "col-sm">
-                    <input type="text" th:field="*{clothesForWork}" />
+                    <div>
+                        <input type = 'radio' name = "orderVar" th:field="*{clothesForWork}" value = "Стирка в машинке объемом до 5 кг">
+                        <h3> Стирка в машинке объемом до 5 кг </h3>
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-sm">
+                    <div>
+                        <input type = 'radio' name = "orderVar" th:field="*{clothesForWork}" value = "Стирка в машинке объемом до 10 кг">
+                        <h3> Стирка в машинке объемом до 10 кг </h3>
+                    </div>
+                </div>
+                <div class = "col-sm">
+                    <div>
+                        <input type = 'radio' name = "orderVar" th:field="*{clothesForWork}" value = "Стирка в машинке объемом до 15 кг">
+                        <h3> Стирка в машинке объемом до 15 кг </h3>
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-sm">
+                    <div>
+                        <input type = 'radio' name = "orderVar" th:field="*{clothesForWork}" value = "Стирка верхней одежды">
+                        <h3> Стирка верхней одежды </h3>
+                    </div>
+                </div>
+                <div class = "col-sm">
+                    <div>
+                        <input type = 'radio' name = "orderVar" th:field="*{clothesForWork}" value = "Стирка скатертей, полотенец и т.д.">
+                        <h3> Стирка скатертей, полотенец и т.д. </h3>
+                    </div>
+                </div>
+            </div>
+            <div class = "row">
+                <div class = "col-sm">
+                    <div>
+                        <input type = 'radio' name = "orderVar" th:field="*{clothesForWork}" value = "Стирка в крупных объемах">
+                        <h3> Стирка в крупных объемах </h3>
+                        <p> *Детали оговариваются по телефону. Мы вам обязательно позвоним после регистрации заказа. </p>
+                    </div>
                 </div>
             </div>
             <div class = "row">

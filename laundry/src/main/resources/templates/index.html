@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Главная</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -27,6 +27,9 @@
         </div>
         <div class = "col-sm" th:if="${authentication} != anonymousUser">
             <a href = "/show-orders">Просмотреть активные заказы</a>
+        </div>
+        <div class = "col-sm" th:if="${authentication} != anonymousUser" sec:authorize="hasRole('MANAGER')">
+            <a href = "/management/order-control">Менеджмент заказов</a>
         </div>
         <div class = "col-sm" th:if="${authentication} != anonymousUser">
             <a href = "/logout">Выйти</a>
