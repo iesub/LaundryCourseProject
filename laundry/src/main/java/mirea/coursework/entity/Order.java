@@ -1,10 +1,13 @@
 package mirea.coursework.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import mirea.coursework.enumiration.OrderStateEnum;
 
 import javax.persistence.*;
 import java.util.Date;
+
+/*
+Класс-сущность, отвечающий за хранение информации о заказах
+*/
 
 @Entity
 @Table(name = "orders")
@@ -12,16 +15,19 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = Long.valueOf(0);
+    //Вещи для обработки
     @Column(name = "clothesForWork")
     String clothesForWork;
+    //Время, когда клиент готов сдать вещи в чистку
     @Column(name = "dateToTake")
     String dateToTake;
+    //Время создания заказа
     @Column(name = "dateCreated")
     Date dateCreated;
+    //Состояние заказа
     @Column(name = "state")
     OrderStateEnum state;
-    @Column(name = "returnDate")
-    Date returnDate;
+    //Пользователь, сделавший заказ
     @ManyToOne()
     @JoinColumn(name="user_id")
     private User users;
@@ -42,10 +48,6 @@ public class Order {
         this.id = id;
     }
 
-    public void setReturnDate(Date returnDate) {
-        this.returnDate = returnDate;
-    }
-
     public void setState(OrderStateEnum state) {
         this.state = state;
     }
@@ -56,10 +58,6 @@ public class Order {
 
     public Date getDateCreated() {
         return dateCreated;
-    }
-
-    public Date getReturnDate() {
-        return returnDate;
     }
 
     public Long getId() {
