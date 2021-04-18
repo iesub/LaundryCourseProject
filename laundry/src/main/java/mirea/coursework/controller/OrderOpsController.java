@@ -18,6 +18,9 @@ import java.util.List;
 
 import static mirea.coursework.enumiration.OrderStateEnum.AWAIT_TO_ACCEPT;
 
+/* Контроллер, отвечающий за страницу
+* списка заказов и страницу создания заказов */
+
 @Controller
 public class OrderOpsController {
 
@@ -32,6 +35,9 @@ public class OrderOpsController {
         model.addAttribute("orderForm", new Order());
         return "add-order";
     }
+
+    /* Создание заказа. Получаем информацию о заказе с сайта.
+    * Устанавливаем заказу начальное состояние и присваиваем id владельца */
 
     @PostMapping("/add-order")
     public String addOrder(@ModelAttribute("orderForm") Order order){
@@ -48,6 +54,8 @@ public class OrderOpsController {
 
         return "redirect:/";
     }
+
+    /*Выводим все заказы пользователя. Сначала новые заказы.*/
 
     @GetMapping("/show-orders")
     public String showOrders(Model model){

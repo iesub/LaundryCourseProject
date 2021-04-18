@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*Контроллер регистрации*/
+
 @Controller
 public class RegistrationController {
     @Autowired
@@ -25,6 +27,10 @@ public class RegistrationController {
 
         return "registration";
     }
+
+    /*Получаем информацию для регистрации, проводим валидацию введенных данных
+    * Если ошибок нет - добавляем нового пользователя и отправляем письмо с
+    * ссылкой для активации аккаунта */
 
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
