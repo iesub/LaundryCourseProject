@@ -28,7 +28,7 @@ public class MailService {
             helper.setText(htmlMsg, true);
             helper.setTo(userMail);
             helper.setSubject("Регистрация в laundry");
-            helper.setFrom("iesubutil@gmail.com");
+            helper.setFrom({YOUR_MAIL);
             emailSender.send(mimeMessage);
         } catch (MessagingException e) {
             e.printStackTrace();
