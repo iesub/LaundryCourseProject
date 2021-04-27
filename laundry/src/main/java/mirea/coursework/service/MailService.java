@@ -23,7 +23,7 @@ public class MailService {
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
         String htmlMsg = "<h2>Вы зарегистрировались на сайте laundry</h2>" +
                 "<h3>Перейдите по ссылке ниже, для активации вашего аккаунта.</h3>" +
-                "<a href = 'http://89.179.247.172:13378/registration/activate/"+ userId +"'>Активация</a>";
+                "<a href = 'http://{YOUR_IP_OR_DOMAIN}/registration/activate/"+ userId +"'>Активация</a>";
         try {
             helper.setText(htmlMsg, true);
             helper.setTo(userMail);
