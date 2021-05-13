@@ -1,7 +1,9 @@
 package mirea.coursework.controller;
 
 import mirea.coursework.entity.Order;
+import mirea.coursework.entity.User;
 import mirea.coursework.enumiration.OrderStateEnum;
+import mirea.coursework.service.MailService;
 import mirea.coursework.service.OrderService;
 import mirea.coursework.service.UserService;
 import mirea.coursework.util.IdSaverForManagement;
@@ -25,6 +27,9 @@ public class OrderControlController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private MailService mailService;
 
     /*Get запрос передает в модели списки заказов по их статусу.*/
 
@@ -60,6 +65,9 @@ public class OrderControlController {
         Order order = orderService.findOrderById(idL);
         order.setState(OrderStateEnum.values()[order.getState().ordinal()+1]);
         orderService.insertOrder(order);
+
+        User owner = order.getUsers();
+        mailService.updateMail(owner.getUsername());
 
         return "redirect:/management/order-control";
     }

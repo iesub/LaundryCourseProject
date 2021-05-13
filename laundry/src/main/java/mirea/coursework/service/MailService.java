@@ -45,4 +45,21 @@ public class MailService {
             e.printStackTrace();
         }
     }
+
+    public void updateMail(String userMail) {
+        MimeMessage mimeMessage = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+        String htmlMsg = "<h2>Ваш заказ сменил свой статус</h2>" +
+                "<h3>Перейдите по ссылке ниже, чтобы просмотреть изменения.</h3>" +
+                "<a href = 'http://"+ip+":"+port+"/show-orders'> Список заказов </a>";
+        try {
+            helper.setText(htmlMsg, true);
+            helper.setTo(userMail);
+            helper.setSubject("Ваш заказ в laundry обновлен");
+            helper.setFrom(mail);
+            emailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }
