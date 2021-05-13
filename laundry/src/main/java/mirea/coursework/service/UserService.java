@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Optional;
 
+/* Сервис пользователей
+* Позволяет сохранить пользователя, загрузить по
+* имени пользователя, а также имеет отдельны метод
+* для регистрации пользователя */
+
 @Service
 public class UserService implements UserDetailsService {
     @Autowired

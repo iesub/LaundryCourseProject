@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Comparator;
 import java.util.List;
 
+/*Контроллер для страницы с менеджментом*/
+
 @Controller
 public class OrderControlController {
 
@@ -23,6 +25,8 @@ public class OrderControlController {
 
     @Autowired
     UserService userService;
+
+    /*Get запрос передает в модели списки заказов по их статусу.*/
 
     @GetMapping("/management/order-control")
     public String addOrder(Model model){
@@ -48,6 +52,7 @@ public class OrderControlController {
         return "/management/order-control";
     }
 
+    /*Post запрос - смена состояния заказа. С сайта получаем id заказа и меняем его состояние на следующее*/
     @PostMapping("/management/order-control")
     public String updateState(@ModelAttribute("orderId") IdSaverForManagement id){
 

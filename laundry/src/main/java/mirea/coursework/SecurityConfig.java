@@ -11,7 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Properties;
+/* Конфигурация SpringSecurity
+* Данная конфигурация ограничивает функцианал незарегистрированнхы
+* пользователей, также не дает пользователю, не имеющему роль
+* менеджера доступ к странице менеджмента*/
 
 @Configuration
 @EnableWebSecurity

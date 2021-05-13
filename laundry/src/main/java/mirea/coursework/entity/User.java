@@ -1,8 +1,5 @@
 package mirea.coursework.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,22 +8,31 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/*Класс-сущность, отвечающий за хранение информации о пользователях.
+Имплементирует интерфейс UserDetails из SpringSecurity*/
+
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = Long.valueOf(0);
+    //Имя пользователя(хотя пользователя просят ввести адрес электронной почты)
     @Column(name = "name")
     String username;
+    //Фамилия клиента
     @Column(name = "surname")
     String surname;
+    //Телефонный номер клиента
     @Column(name = "phone_number")
     String phoneNumber;
+    //Имя клиента
     @Column(name = "name_real")
     String name;
+    //Пароль
     @Column(name = "password")
     String password;
+    //Поле, используемое для повторного пароля, мспользуется в валидации формы
     @Transient
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)

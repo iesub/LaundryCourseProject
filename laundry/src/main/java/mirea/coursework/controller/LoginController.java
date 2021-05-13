@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/*Контроллер авторизации. Перенаправляет на страницу авторизации и
+* отображает ошибки на странице*/
+
 @Controller
 public class LoginController {
 

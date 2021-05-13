@@ -5,12 +5,19 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;
 
+/*Класс-сущность, хранит все информацию о ролях.
+Имплементирует интерфейс GrantedAuthority из
+Spring Security
+*/
+
 @Entity
 @Table(name = "role")
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
+    //Название роли
     private String name;
+    //Пользователи с данной ролью
     @Transient
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
