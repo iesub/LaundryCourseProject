@@ -1,5 +1,6 @@
 package mirea.coursework;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,14 +12,19 @@ import java.util.Properties;
 
 @Configuration
 public class MailConfiguration{
+    @Value("${application.mail}")
+    String mail;
+
+    @Value("${application.mail.pass}")
+    String pass;
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com"); //Хост почтового сервиса
         mailSender.setPort(587);
 
-        mailSender.setUsername({YOUR_MAIL}); //Почтовый ящик
-        mailSender.setPassword({YOUR_MAIL_PASSWORD); //Пароль
+        mailSender.setUsername(mail); //Почтовый ящик
+        mailSender.setPassword(pass); //Пароль
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
