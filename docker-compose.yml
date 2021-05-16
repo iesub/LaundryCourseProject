@@ -15,7 +15,7 @@ services:
   ports:
    - "3306:3306"
   volumes:
-   - dbdata:/var/lib/mysql
+   - ./dbdata:/var/lib/mysql
   restart: always
 
 
@@ -48,6 +48,3 @@ services:
    SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db2:3306/laundryapp?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8
    SPRING_DATASOURCE_USERNAME: root
    SPRING_DATASOURCE_PASSWORD: root
-   
-volumes:
-   dbdata:

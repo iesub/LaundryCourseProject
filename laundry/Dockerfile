@@ -1,4 +1,4 @@
 FROM openjdk:15-jdk-alpine
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-Dserver.port=13378","-Dapplication.mail=iesubutil@gmail.com","-Dapplication.mail.pass=JavaUtilPass","-jar","app.jar"]
