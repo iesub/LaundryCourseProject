@@ -1,0 +1,53 @@
+version: "3.5"
+services:
+
+services:
+
+ db:
+  image: mysql:latest
+  container_name: mysql-db2
+  environment:
+   MYSQL_DATABASE: laundryapp
+   MYSQL_USER: admin
+   MYSQL_PASSWORD: admin
+   MYSQL_ROOT_PASSWORD: root
+   MYSQL_ROOT_HOST: '%'
+  ports:
+   - "3306:3306"
+  volumes:
+   - dbdata:/var/lib/mysql
+  restart: always
+
+
+ phpmyadmin:
+  image: phpmyadmin/phpmyadmin:latest
+  container_name: my-php-myadmin
+  ports:
+   - "80:80"
+  restart: always
+  depends_on:
+   - db
+  environment:
+   SPRING_DATASOURCE_USERNAME: root
+   SPRING_DATASOURCE_PASSWORD: root
+
+
+
+ laundryapp:
+  image: laundry-app
+  container_name: laundry-app-container
+  build:
+   context: laundry\
+   dockerfile: Dockerfile
+  ports:
+   - "13378:13378"
+  restart: always
+  depends_on:
+   - db
+  environment:
+   SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db2:3306/laundryapp?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8
+   SPRING_DATASOURCE_USERNAME: root
+   SPRING_DATASOURCE_PASSWORD: root
+   
+volumes:
+   dbdata:
