@@ -54,7 +54,7 @@ public class OrderControlController {
 
         model.addAttribute("orderId", new IdSaverForManagement());
 
-        return "/management/order-control";
+        return "order-control";
     }
 
     /*Post запрос - смена состояния заказа. С сайта получаем id заказа и меняем его состояние на следующее*/
@@ -69,7 +69,7 @@ public class OrderControlController {
         User owner = order.getUsers();
         mailService.updateMail(owner.getUsername());
 
-        return "redirect:/management/order-control";
+        return "redirect:order-control";
     }
 
 }
