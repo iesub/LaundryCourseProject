@@ -25,6 +25,12 @@ public class UserService implements UserDetailsService {
     @Autowired
     BCryptPasswordEncoder encoder;
 
+    public UserService(){}
+
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);

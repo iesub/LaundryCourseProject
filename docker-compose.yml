@@ -8,8 +8,6 @@ services:
   container_name: mysql-db2
   environment:
    MYSQL_DATABASE: laundryapp
-   MYSQL_USER: admin
-   MYSQL_PASSWORD: admin
    MYSQL_ROOT_PASSWORD: root
    MYSQL_ROOT_HOST: '%'
   ports:
