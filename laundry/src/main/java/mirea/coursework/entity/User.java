@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-/*Класс-сущность, отвечающий за хранение информации о пользователях.
+/**Класс-сущность, отвечающий за хранение информации о пользователях.
 Имплементирует интерфейс UserDetails из SpringSecurity*/
 
 @Entity
@@ -17,28 +17,32 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = Long.valueOf(0);
-    //Имя пользователя(хотя пользователя просят ввести адрес электронной почты)
+    /**Имя пользователя(хотя пользователя просят ввести адрес электронной почты)*/
     @Column(name = "name")
     String username;
-    //Фамилия клиента
+    /**Фамилия клиента*/
     @Column(name = "surname")
     String surname;
-    //Телефонный номер клиента
+    /**Телефонный номер клиента*/
     @Column(name = "phone_number")
     String phoneNumber;
-    //Имя клиента
+    /**Имя клиента*/
     @Column(name = "name_real")
     String name;
-    //Пароль
+    /**Пароль*/
     @Column(name = "password")
     String password;
-    //Поле, используемое для повторного пароля, мспользуется в валидации формы
+    /**Поле, используемое для повторного пароля, используется в валидации формы*/
     @Transient
     private String passwordConfirm;
+    /**Список ролей пользователя. Используются SpringSecurity для
+     * допуска на опроеделенные страницы сайта*/
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+    /**Список заказов, оформленных пользователем*/
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Order> orders;
+    /**ИСпользуется для проверки активации аккаунта*/
     @Column(name = "activated")
     boolean isActive = false;
 
@@ -139,6 +143,8 @@ public class User implements UserDetails {
         return true;
     }
 
+    /**Функция возвращает 1 если аккаунта активен, иначе 0
+     * @return true или false*/
     @Override
     public boolean isEnabled() {
         return isActive;

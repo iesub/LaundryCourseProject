@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.Set;
 
-/*Класс-сущность, хранит все информацию о ролях.
+/**Класс-сущность, хранит все информацию о ролях.
 Имплементирует интерфейс GrantedAuthority из
 Spring Security
 */
@@ -15,19 +15,22 @@ Spring Security
 public class Role implements GrantedAuthority {
     @Id
     private Long id;
-    //Название роли
+    /**Название роли*/
     private String name;
-    //Пользователи с данной ролью
+    /**Пользователи с данной ролью*/
     @Transient
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+    /**Стандартный пустой конструктор*/
     public Role() {
     }
 
+    /**Конструктор с указанием id*/
     public Role(Long id) {
         this.id = id;
     }
 
+    /**Конструктор с указанием id и названия*/
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;
@@ -57,6 +60,8 @@ public class Role implements GrantedAuthority {
         this.users = users;
     }
 
+    /**Функция возвращает название роли, для проверки ролей пользователя
+     * @return String name*/
     @Override
     public String getAuthority() {
         return getName();
