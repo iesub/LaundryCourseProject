@@ -5,7 +5,7 @@ import mirea.coursework.enumiration.OrderStateEnum;
 import javax.persistence.*;
 import java.util.Date;
 
-/*
+/**
 Класс-сущность, отвечающий за хранение информации о заказах
 */
 
@@ -15,19 +15,19 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = Long.valueOf(0);
-    //Вещи для обработки
+    /**Вещи для обработки*/
     @Column(name = "clothesForWork")
     String clothesForWork;
-    //Время, когда клиент готов сдать вещи в чистку
+    /**Время, когда клиент готов сдать вещи в чистку*/
     @Column(name = "dateToTake")
     String dateToTake;
-    //Время создания заказа
+    /**Время создания заказа*/
     @Column(name = "dateCreated")
     Date dateCreated;
-    //Состояние заказа
+    /**Состояние заказа*/
     @Column(name = "state")
     OrderStateEnum state;
-    //Пользователь, сделавший заказ
+    /**Пользователь, сделавший заказ*/
     @ManyToOne()
     @JoinColumn(name="user_id")
     private User users;

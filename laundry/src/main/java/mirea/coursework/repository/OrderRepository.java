@@ -6,11 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-/*
-Репозиторий для заказов. Имеет дополнительный метод для
-возврата списка заказов по состоянию
+/**
+Репозиторий для заказов.
 */
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
+    /**Метод осуществляет выборку по полю state в таблице
+     * @param stateNumber Ключ для поиска
+     * @retutn Искомый заказ*/
     List<Order> findByState(OrderStateEnum stateNumber);
 }

@@ -8,15 +8,26 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
-//Конфигурация для почты
+/**Конфигурация для почты*/
 
 @Configuration
 public class MailConfiguration{
+
+    /**Почта, с которой отправляются сообщения*/
+
     @Value("${application.mail}")
     String mail;
 
+    /**Пароль от почты, с которой отправляются сообщения*/
+
     @Value("${application.mail.pass}")
     String pass;
+
+    /**Класс, который хранит в себе настройку почты
+     * В ней указан хост адреса (Google) и порт хоста,
+     * Адресс почты и пароль,
+     * Дополнительные настройик*/
+
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

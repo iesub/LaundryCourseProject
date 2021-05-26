@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-/* Конфигурация SpringSecurity
+/** Конфигурация SpringSecurity
 * Данная конфигурация ограничивает функцианал незарегистрированнхы
 * пользователей, также не дает пользователю, не имеющему роль
 * менеджера доступ к странице менеджмента*/
@@ -20,13 +20,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableJpaRepositories
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    /**UserService который использует кодировку паролей*/
+
     @Autowired
     UserService userService;
+
+    /**Метод, который возвращает метод кодировку
+     * @return Метод кодировки*/
 
     @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /**Метод, что устанавливает все правила подключения и области доступа для различных пользователей
+     * @param http Сетевой протокол*/
+
     @Override
     protected void configure(HttpSecurity http) throws
             Exception {
@@ -47,6 +57,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .logoutSuccessUrl("/");
     }
+
+    /**Метод, который устанавливает метод кодировку на авторизацию
+     * @param auth Класс SpringSecurity, отвечающий за аквторизацию*/
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
