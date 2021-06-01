@@ -18,17 +18,25 @@ import java.util.List;
 
 import static mirea.coursework.enumiration.OrderStateEnum.AWAIT_TO_ACCEPT;
 
-/* Контроллер, отвечающий за страницу
+/** Контроллер, отвечающий за страницу
 * списка заказов и страницу создания заказов */
 
 @Controller
 public class OrderOpsController {
 
+    /**Сервис заказов, позволяющий классу работат с заказами*/
+
     @Autowired
     OrderService orderService;
 
+    /**Сервис пользователя, позволяющий классу работать с пользователями*/
+
     @Autowired
     UserService userService;
+
+    /**Метод открывает страницу создания заказа
+     * @param model Модель, что хранит информацию о заказе
+     * @return Страница создания заказов*/
 
     @GetMapping("/add-order")
     public String addOrder(Model model){
@@ -36,8 +44,10 @@ public class OrderOpsController {
         return "add-order";
     }
 
-    /* Создание заказа. Получаем информацию о заказе с сайта.
-    * Устанавливаем заказу начальное состояние и присваиваем id владельца */
+    /** Создание заказа. Получаем информацию о заказе с сайта.
+    * Устанавливаем заказу начальное состояние и присваиваем id владельца
+     * @param order Заказ,который создал пользователь
+     * @return Возврат на главную страницу*/
 
     @PostMapping("/add-order")
     public String addOrder(@ModelAttribute("orderForm") Order order){
@@ -55,7 +65,9 @@ public class OrderOpsController {
         return "redirect:/";
     }
 
-    /*Выводим все заказы пользователя. Сначала новые заказы.*/
+    /**Выводим все заказы пользователя. Сначала новые заказы.
+     * @param model Модель, в которую записывается список заказов
+     * @return Страница заказов*/
 
     @GetMapping("/show-orders")
     public String showOrders(Model model){

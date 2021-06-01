@@ -17,21 +17,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Comparator;
 import java.util.List;
 
-/*Контроллер для страницы с менеджментом*/
+/**Контроллер для страницы с менеджментом*/
 
 @Controller
 public class OrderControlController {
 
+    /**Сервис заказов, позволяющий классу работат с заказами*/
+
     @Autowired
     OrderService orderService;
+
+    /**Сервис пользователя, позволяющий классу работать с пользователями*/
 
     @Autowired
     UserService userService;
 
+    /**Сервис писем, позволяет классу отправлять письмо*/
+
     @Autowired
     private MailService mailService;
 
-    /*Get запрос передает в модели списки заказов по их статусу.*/
+    /**Get запрос передает в модели списки заказов по их статусу
+     * В методе происходит выборка всех типов заказов и они записываются в модели.
+     * @param model Модель, в которую записываются заказы
+     * @return Страница списка заказов*/
 
     @GetMapping("/management/order-control")
     public String addOrder(Model model){
@@ -57,7 +66,10 @@ public class OrderControlController {
         return "order-control";
     }
 
-    /*Post запрос - смена состояния заказа. С сайта получаем id заказа и меняем его состояние на следующее*/
+    /**Post запрос - смена состояния заказа. С сайта получаем id заказа и меняем его состояние на следующее
+     * Для этого получаем id заказа и меняем его состояние
+     * @param id id Заказа, который мы получаем со страницы сайта
+     * @return Возвращаемся на страницу списков заказа*/
     @PostMapping("/management/order-control")
     public String updateState(@ModelAttribute("orderId") IdSaverForManagement id){
 

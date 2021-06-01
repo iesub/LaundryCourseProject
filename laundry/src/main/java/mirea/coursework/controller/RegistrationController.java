@@ -12,14 +12,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*Контроллер регистрации*/
+/**Контроллер регистрации*/
 
 @Controller
 public class RegistrationController {
+
+    /**Сервис пользователя, позволяющий классу работать с пользователями*/
+
     @Autowired
     private UserService userService;
+
+    /**Сервис писем, позволяет классу отправлять письмо*/
+
     @Autowired
     private MailService mailService;
+
+    /**Метод возвращает страницу регистрации
+     * @param model Модель, которая хранит информацию о новом пользователе
+     * @return Страница регистрации*/
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -28,9 +38,13 @@ public class RegistrationController {
         return "registration";
     }
 
-    /*Получаем информацию для регистрации, проводим валидацию введенных данных
+    /**Получаем информацию для регистрации, проводим валидацию введенных данных
     * Если ошибок нет - добавляем нового пользователя и отправляем письмо с
-    * ссылкой для активации аккаунта */
+    * ссылкой для активации аккаунта
+     * @param userForm Данные о пользователе
+     * @param bindingResult Хранит информацию об ошибках присвоения значений к атрибутам
+     * @param model Хранит в себе информацию об ошибках
+     * @return Страница логина или регистрации*/
 
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
