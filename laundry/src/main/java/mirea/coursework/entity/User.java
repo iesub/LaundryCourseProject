@@ -1,5 +1,7 @@
 package mirea.coursework.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,14 +14,16 @@ import java.util.Set;
 Имплементирует интерфейс UserDetails из SpringSecurity*/
 
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = Long.valueOf(0);
-    /**Имя пользователя(хотя пользователя просят ввести адрес электронной почты)*/
-    @Column(name = "name")
-    String username;
+    /**Адрес электронной почты*/
+    @Column(name = "mail")
+    String mail;
     /**Фамилия клиента*/
     @Column(name = "surname")
     String surname;
@@ -42,103 +46,34 @@ public class User implements UserDetails {
     /**Список заказов, оформленных пользователем*/
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Order> orders;
-    /**ИСпользуется для проверки активации аккаунта*/
+    /**Используется для проверки активации аккаунта*/
     @Column(name = "activated")
     boolean isActive = false;
 
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
+    /**Метод из UserDetails, всегда возвращает true, т.к. аккаунт не может истеч
+     * @return Адрес электронной почты клиента*/
     @Override
     public String getUsername() {
-        return username;
+        return mail;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean getActive() {
-        return isActive;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
+    /**Метод из UserDetails, всегда возвращает true, т.к. аккаунт не может истеч
+     * @return Всегда true*/
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    /**Метод из UserDetails, всегда возвращает true, т.к. в данной программе нельзя заблокировать пользователя
+     * @return Всегда true*/
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    /**ФМетод из UserDetails, всегда возвращает true, т.к. данные для входа в аккаунт не могут истеч
+     * @return Всегда true*/
     public boolean isCredentialsNonExpired() {
         return true;
     }
@@ -150,6 +85,8 @@ public class User implements UserDetails {
         return isActive;
     }
 
+    /**Функция возвращает список ролей пользователя
+     * @return Список ролей пользователя*/
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();

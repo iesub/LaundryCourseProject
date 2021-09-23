@@ -13,6 +13,6 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
     /**Метод осуществляет выборку по полю state в таблице
      * @param stateNumber Ключ для поиска
-     * @retutn Искомый заказ*/
+     * @return Искомый заказ*/
     List<Order> findByState(OrderStateEnum stateNumber);
 }

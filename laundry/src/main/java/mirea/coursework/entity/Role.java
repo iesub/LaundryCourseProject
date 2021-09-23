@@ -1,5 +1,7 @@
 package mirea.coursework.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ Spring Security
 */
 
 @Entity
+@Getter
+@Setter
 @Table(name = "role")
 public class Role implements GrantedAuthority {
     @Id
@@ -36,32 +40,8 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
     /**Функция возвращает название роли, для проверки ролей пользователя
-     * @return String name*/
+     * @return Строка с названием роли*/
     @Override
     public String getAuthority() {
         return getName();
