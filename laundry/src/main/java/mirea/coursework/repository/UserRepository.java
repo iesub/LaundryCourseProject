@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<User, Long> {
     /**Метод осуществляет выборку по полю username в таблице
      * @param username Ключ для поиска
-     * @retutn Искомый пользователь*/
+     * @return Искомый пользователь*/
     User findByUsername(String username);
 }

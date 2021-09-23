@@ -17,6 +17,9 @@ Spring Security
 @Setter
 @Table(name = "role")
 public class Role implements GrantedAuthority {
+    /**
+     * id роли
+     */
     @Id
     private Long id;
     /**Название роли*/
@@ -29,12 +32,15 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
-    /**Конструктор с указанием id*/
+    /**Конструктор с указанием id
+     * @param id - id роли*/
     public Role(Long id) {
         this.id = id;
     }
 
-    /**Конструктор с указанием id и названия*/
+    /**Конструктор с указанием id и названия
+     * @param id - id роли
+     * @param name - название роли*/
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;

@@ -26,7 +26,8 @@ public class MailConfiguration{
     /**Класс, который хранит в себе настройку почты
      * В ней указан хост адреса (Google) и порт хоста,
      * Адресс почты и пароль,
-     * Дополнительные настройик*/
+     * Дополнительные настройик
+     * @return Полностью настроенный объект mailSender*/
 
     @Bean
     public JavaMailSender getJavaMailSender() {

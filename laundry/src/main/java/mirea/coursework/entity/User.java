@@ -18,6 +18,9 @@ import java.util.Set;
 @Setter
 @Table(name = "users")
 public class User implements UserDetails {
+    /**
+     * id пользователя
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = Long.valueOf(0);
@@ -79,7 +82,7 @@ public class User implements UserDetails {
     }
 
     /**Функция возвращает 1 если аккаунта активен, иначе 0
-     * @return true или false*/
+     * @return true или falsemvn*/
     @Override
     public boolean isEnabled() {
         return isActive;

@@ -77,6 +77,11 @@ public class RegistrationController {
         return "registration-mail-notification";
     }
 
+    /**
+     * Метод активации аккаунта пользователя
+     * @param userId - id пользователя, аккаунт которого требуется активировать
+     * @return Страница авторизации
+     */
     @GetMapping("registration/activate/{userId}")
     public String activation(@PathVariable("userId") Long userId) {
         User user = userService.findUserById(userId);
