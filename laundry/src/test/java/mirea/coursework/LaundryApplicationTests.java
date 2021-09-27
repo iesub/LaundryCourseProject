@@ -153,8 +153,14 @@ class LaundryApplicationTests {
 	}
 
 
+	/**
+	 * Метод, проверяющий, правильно ли собираются и отправляются письма пользователям
+	 * @throws InterruptedException
+	 * @throws MessagingException
+	 * @throws IOException
+	 */
 	@Test
-	public void testEmail() throws InterruptedException, MessagingException {
+	public void testEmail() throws InterruptedException, MessagingException, IOException {
 
 		testSmtp = new GreenMail(ServerSetupTest.SMTP);
 		testSmtp.start();
@@ -162,16 +168,22 @@ class LaundryApplicationTests {
 		emailSender.setPort(3025);
 		emailSender.setHost("localhost");
 
-		SimpleMailMessage message = new SimpleMailMessage();
+		MailService mailService = new MailService(emailSender);
+		mailService.setMail("from@smb.com");
+		mailService.setIp("localhost");
+		mailService.setPort("13378");
 
 		mailService.sendActivationURL("example@mail.com", 1L);
+		mailService.updateMail("example@mail.com");
 
 		Message[] messages = testSmtp.getReceivedMessages();
-		assertEquals(1, messages.length);
+		assertEquals(2, messages.length);
 		assertEquals("Регистрация в laundry", messages[0].getSubject());
-		String body = GreenMailUtil.getBody(messages[0]).replaceAll("=\r?\n", "");
-		assertEquals("<h2>Вы зарегистрировались на сайте laundry</h2>\" +\n" +
-				"                \"<h3>Перейдите по ссылке ниже, для активации вашего аккаунта.</h3>\" +\n" +
-				"                \"<a href = 'http://89.179.247.172:13378/registration/activate/1'>Активация</a>", body);
+		assertEquals("<h2>Вы зарегистрировались на сайте laundry</h2><h3>Перейдите по ссылке ниже, для активации вашего аккаунта.</h3><a href = 'http://localhost:13378/registration/activate/1'>Активация</a>",
+				messages[0].getContent().toString());
+
+		assertEquals("Ваш заказ в laundry обновлен", messages[1].getSubject());
+		assertEquals("<h2>Ваш заказ сменил свой статус</h2><h3>Перейдите по ссылке ниже, чтобы просмотреть изменения.</h3><a href = 'http://localhost:13378/show-orders'> Список заказов </a>",
+				messages[1].getContent().toString());
 	}
 }

@@ -1,5 +1,7 @@
 package mirea.coursework.service;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,6 +17,8 @@ import java.net.InetAddress;
  */
 
 @Service
+@Getter
+@Setter
 public class MailService {
 
     /**Объект класса JavaMailSender, который выполняет задачи по отправке писем*/
