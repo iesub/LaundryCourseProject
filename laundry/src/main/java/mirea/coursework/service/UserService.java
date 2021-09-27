@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
      * */
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByMail(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
      * @return возвращает true, если регистрация прошла успешно, иначе false
      * */
     public boolean registerUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
+        User userFromDB = userRepository.findByMail(user.getUsername());
 
         if (userFromDB != null) {
             return false;

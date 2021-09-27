@@ -11,5 +11,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**Метод осуществляет выборку по полю username в таблице
      * @param username Ключ для поиска
      * @return Искомый пользователь*/
+<<<<<<< Updated upstream
     User findByUsername(String username);
+=======
+    User findByMail(String username);
+>>>>>>> Stashed changes
 }

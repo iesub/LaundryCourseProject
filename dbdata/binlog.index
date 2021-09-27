@@ -10,3 +10,7 @@
 ./binlog.000010
 ./binlog.000011
 ./binlog.000012
+<<<<<<< Updated upstream
+=======
+./binlog.000013
+>>>>>>> Stashed changes

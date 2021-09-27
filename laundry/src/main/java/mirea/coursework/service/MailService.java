@@ -39,10 +39,24 @@ public class MailService {
     @Value("${application.mail}")
     String mail;
 
+    /**
+     * Пустой конструктор класса
+     */
+    public MailService(){}
+
+    /**
+     * Конструктор с указанием нового объекта класса JavaMailSender
+     * Создан для проведения Unit тестов
+     * @param emailSender - объект класса JavaMailSender
+     */
+    public MailService(JavaMailSender emailSender){
+        this.emailSender = emailSender;
+    }
+
     /**Отправляет новому пользователю письмо с ссылкой на активацию аккаунта
      * @param userMail Адрес клиента, на который отправляется письмо
      * @param userId Id пользователя. Использется при формировании ссылки для активации аккаунта*/
-    public void sendActivationURL(String userMail, Long userId) {
+    public boolean sendActivationURL(String userMail, Long userId) {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
         String htmlMsg = "<h2>Вы зарегистрировались на сайте laundry</h2>" +
@@ -54,15 +68,17 @@ public class MailService {
             helper.setSubject("Регистрация в laundry");
             helper.setFrom(mail);
             emailSender.send(mimeMessage);
+            return true;
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     /**Отправляет пользователю сообщение о смене состояния заказа
      * @param userMail Адрес клиента, на который отправляется письмо */
 
-    public void updateMail(String userMail) {
+    public boolean updateMail(String userMail) {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
         String htmlMsg = "<h2>Ваш заказ сменил свой статус</h2>" +
@@ -74,8 +90,10 @@ public class MailService {
             helper.setSubject("Ваш заказ в laundry обновлен");
             helper.setFrom(mail);
             emailSender.send(mimeMessage);
+            return true;
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
