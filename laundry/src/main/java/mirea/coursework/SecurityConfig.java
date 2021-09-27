@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
-    /**Метод, который возвращает метод кодировку
+    /**Метод, который возвращает метод кодировки
      * @return Метод кодировки*/
 
     @Bean
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/");
     }
 
-    /**Метод, который устанавливает метод кодировку на авторизацию
+    /**Метод, который устанавливает метод кодировки на авторизацию
      * @param auth Класс SpringSecurity, отвечающий за аквторизацию*/
 
     @Override

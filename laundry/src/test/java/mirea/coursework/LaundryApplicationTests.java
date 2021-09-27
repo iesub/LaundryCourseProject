@@ -1,7 +1,6 @@
 package mirea.coursework;
 
 import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.GreenMailUtil;
 import com.icegreen.greenmail.util.ServerSetupTest;
 import mirea.coursework.entity.Order;
 import mirea.coursework.entity.User;
@@ -11,10 +10,6 @@ import mirea.coursework.repository.UserRepository;
 import mirea.coursework.service.MailService;
 import mirea.coursework.service.OrderService;
 import mirea.coursework.service.UserService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -23,18 +18,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -160,7 +150,7 @@ class LaundryApplicationTests {
 	 * @throws IOException
 	 */
 	@Test
-	public void testEmail() throws InterruptedException, MessagingException, IOException {
+	public void testEmail() throws MessagingException, IOException {
 
 		testSmtp = new GreenMail(ServerSetupTest.SMTP);
 		testSmtp.start();
